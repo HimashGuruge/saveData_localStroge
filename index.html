@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ලොගින් පිටුව</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 10px;
+            text-align: center;
+            color: #666;
+        }
+        .toggle-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .toggle-link a {
+            color: #007bff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .toggle-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>ලොගින් වන්න</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">පරිශීලක නම:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">මුරපදය:</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit">ලොගින්</button>
+        </form>
+        <div class="message" id="message"></div>
+        <div class="toggle-link">
+            <a href="create-account.html">නව ගිණුමක් සාදන්න</a>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const messageElement = document.getElementById('message');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const storedUser = localStorage.getItem('user');
+
+            if (storedUser) {
+                const user = JSON.parse(storedUser);
+                if (user.username === username && user.password === password) {
+                    messageElement.textContent = 'ලොගින් සාර්ථකයි!';
+                    messageElement.style.color = 'green';
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html'; // Ensure dashboard.html exists
+                    }, 2000);
+                } else {
+                    messageElement.textContent = 'වැරදි පරිශීලක නමක් හෝ මුරපදයක්!';
+                    messageElement.style.color = 'red';
+                }
+            } else {
+                messageElement.textContent = 'කිසිදු ගිණුමක් සොයා ගත නොහැක! කරුණාකර ගිණුමක් සාදන්න';
+                messageElement.style.color = 'red';
+            }
+            form.reset();
+        });
+    </script>
+</body>
+</html>

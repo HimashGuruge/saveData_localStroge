@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ගිණුමක් සාදන්න</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .create-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .message {
+            margin-top: 10px;
+            text-align: center;
+            color: #666;
+        }
+        .toggle-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .toggle-link a {
+            color: #007bff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .toggle-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="create-container">
+        <h2>ගිණුමක් සාදන්න</h2>
+        <form id="createForm">
+            <div class="form-group">
+                <label for="username">පරිශීලක නම:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">මුරපදය:</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit">සාදන්න</button>
+        </form>
+        <div class="message" id="message"></div>
+        <div class="toggle-link">
+            <a href="login.html">දැනටමත් ගිණුමක් තිබේ නම් ලොගින් වන්න</a>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('createForm');
+        const messageElement = document.getElementById('message');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const storedUser = localStorage.getItem('user');
+
+            if (storedUser) {
+                messageElement.textContent = 'ගිණුමක් දැනටමත් පවතී! කරුණාකර ලොගින් වන්න';
+                messageElement.style.color = 'red';
+            } else {
+                const userData = {
+                    username: username,
+                    password: password
+                };
+                localStorage.setItem('user', JSON.stringify(userData));
+                messageElement.textContent = 'ගිණුම සාර්ථකව සාදන ලදී! දැන් ලොගින් වන්න';
+                messageElement.style.color = 'green';
+                setTimeout(() => {
+                    window.location.href = 'login.html'; // Fixed: Redirect to login.html
+                }, 2000);
+            }
+            form.reset();
+        });
+    </script>
+</body>
+</html>
