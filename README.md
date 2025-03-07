@@ -50,4 +50,5 @@ This is a basic user authentication system built with HTML, CSS, and JavaScript.
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/your-username/saveData_localStroge
+.git
